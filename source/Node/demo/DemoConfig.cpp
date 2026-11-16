@@ -1,16 +1,16 @@
 // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 // SPDX-License-Identifier: BSD-3-Clause-Clear
 
-#include "QC/Node/Hello.hpp"
+#include "QC/Node/Demo.hpp"
 
 namespace QC
 {
 namespace Node
 {
 
-HelloConfig::HelloConfig( Logger &logger ) : NodeConfigBase( logger ) {}
+DemoConfig::DemoConfig( Logger &logger ) : NodeConfigBase( logger ) {}
 
-QCStatus_e HelloConfig::VerifyAndSet( const std::string config, std::string &errors )
+QCStatus_e DemoConfig::VerifyAndSet( const std::string config, std::string &errors )
 {
     QCStatus_e status = NodeConfigBase::VerifyAndSet( config, errors );
     if ( status == QC_STATUS_OK )
@@ -29,7 +29,7 @@ QCStatus_e HelloConfig::VerifyAndSet( const std::string config, std::string &err
             {
                 m_config.nodeId.name = dt.Get<std::string>( "name", "" );
                 m_config.nodeId.id = id;
-                m_config.nodeId.type = QC_NODE_TYPE_HELLO;
+                m_config.nodeId.type = QC_NODE_TYPE_DEMO;
             }
         }
         else
@@ -40,12 +40,12 @@ QCStatus_e HelloConfig::VerifyAndSet( const std::string config, std::string &err
     return status;
 }
 
-QCStatus_e HelloConfig::GetOptions( std::string &options )
+QCStatus_e DemoConfig::GetOptions( std::string &options )
 {
     if ( m_options.empty() )
     {
         DataTree dt;
-        dt.Set<std::string>( "description", "Hello node configuration options" );
+        dt.Set<std::string>( "description", "Demo node configuration options" );
         dt.Set<std::string>( "name", "Node name" );
         dt.Set<std::string>( "id", "Node id" );
         m_options = dt.Dump();
@@ -54,7 +54,7 @@ QCStatus_e HelloConfig::GetOptions( std::string &options )
     return QC_STATUS_OK;
 }
 
-const QCNodeConfigBase_t &HelloConfig::Get()
+const QCNodeConfigBase_t &DemoConfig::Get()
 {
     return m_config;
 }
